@@ -18,15 +18,12 @@ def getRandomPath():
     randomfilepath = f"../non-stop-pop-audio-files/gta5/{randomfolder}/{randomfile}"
     return randomfilepath
 
-
 songfilenames = []
 for file in os.listdir("../non-stop-pop-audio-files"):
     if file.endswith(".wav"):
         if file != "test.wav":
             songfilenames.append(file)
 random.shuffle(songfilenames)
-
-
 
 for i in songfilenames:
 
@@ -37,7 +34,7 @@ for i in songfilenames:
 
     
 
-    partofsong = song[:len(djfile)+500] - 20
+    partofsong = song[:len(djfile)+500] - 15
     djpartofsong = djfile[:len(djfile)]
     restofsong = song[len(djfile)+500:]
 
@@ -46,10 +43,8 @@ for i in songfilenames:
     finalsong = djfile.overlay(song, position=0)
     finalsong += song[len(djfile):]
 
-    finalsong.detectsilence(min_silence_len=100, silence_thresh=-20, seek_step=1)
+    # finalsong.detectsilence(min_silence_len=100, silence_thresh=-20, seek_step=1)
 
     combinedSongs += finalsong
-    
-
 
 combinedSongs.export("../non-stop-pop-audio-files/test.wav", format="wav")
