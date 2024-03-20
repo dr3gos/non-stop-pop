@@ -1,6 +1,8 @@
 import os
 import random
 from pydub import AudioSegment
+import simpleaudio
+from time import sleep
 
 combinedSongs = AudioSegment.empty()
 
@@ -18,12 +20,24 @@ def getRandomPath():
     randomfilepath = f"../non-stop-pop-audio-files/gta5/{randomfolder}/{randomfile}"
     return randomfilepath
 
+def play_audio(audio_segment):
+    # Convert pydub AudioSegment to raw audio data
+    audio_data = audio_segment.raw_data
+    num_channels = audio_segment.channels
+    bytes_per_sample = audio_segment.sample_width
+    sample_rate = audio_segment.frame_rate
+
+    # Play audio
+    return simpleaudio.play_buffer(audio_data, num_channels, bytes_per_sample, sample_rate)
+
 songfilenames = []
 for file in os.listdir("../non-stop-pop-audio-files"):
     if file.endswith(".wav"):
         if file != "test.wav":
             songfilenames.append(file)
 random.shuffle(songfilenames)
+
+
 
 for i in songfilenames:
 
@@ -47,4 +61,12 @@ for i in songfilenames:
 
     combinedSongs += finalsong
 
+play_object = play_audio(combinedSongs)
+
+print("Exporting...")
+
 combinedSongs.export("../non-stop-pop-audio-files/test.wav", format="wav")
+
+while True:
+    if play_object.is_playing():
+        sleep(5)
