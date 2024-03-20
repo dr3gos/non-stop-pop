@@ -43,8 +43,6 @@ for i in songfilenames:
     finalsong = djfile.overlay(song, position=0)
     finalsong += song[len(djfile):]
 
-    # finalsong.detectsilence(min_silence_len=100, silence_thresh=-20, seek_step=1)
-
     combinedSongs += finalsong
 
 combinedSongs.export("../non-stop-pop-audio-files/test.wav", format="wav")
