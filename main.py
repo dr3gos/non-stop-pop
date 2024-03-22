@@ -12,7 +12,9 @@ def getRandomPath():
         if file != ".DS_Store":
             foldernames.append(file)
     generalfilenames = []
-    randomfolder = foldernames[random.randint(0, len(foldernames)-3)]
+    foldernames.remove("nspf_to")
+    foldernames.remove("nspf_time")
+    randomfolder = foldernames[random.randint(0, len(foldernames)-1)]
     for file in os.listdir(f"../non-stop-pop-audio-files/gta5/{randomfolder}"):
         if file.endswith(".wav"):
             generalfilenames.append(file)
@@ -59,14 +61,18 @@ for i in songfilenames:
 
     # finalsong.detectsilence(min_silence_len=100, silence_thresh=-20, seek_step=1)
 
-    combinedSongs += finalsong
+    # combinedSongs += finalsong
 
-play_object = play_audio(combinedSongs)
+    play_object = play_audio(finalsong)
 
-print("Exporting...")
+    while True:
+        if play_object.is_playing():
+            sleep(0.1)
 
-combinedSongs.export("../non-stop-pop-audio-files/test.wav", format="wav")
 
-while True:
-    if play_object.is_playing():
-        sleep(5)
+
+# print("Exporting...")
+
+# combinedSongs.export("../non-stop-pop-audio-files/test.wav", format="wav")
+
+
