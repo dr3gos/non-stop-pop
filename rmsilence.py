@@ -1,3 +1,5 @@
+# under development
+
 import os
 import random
 from pydub import AudioSegment
@@ -20,6 +22,12 @@ def detect_leading_silence(sound, silence_threshold=-50.0, chunk_size=10):
     return trim_ms
 
 sound = AudioSegment.from_file("/path/to/file.wav", format="wav")
+
+songfilenames = []
+for file in os.listdir("../non-stop-pop-audio-files"):
+    if file.endswith(".wav"):
+        if file != "test.wav":
+            songfilenames.append(file)
 
 start_trim = detect_leading_silence(sound)
 end_trim = detect_leading_silence(sound.reverse())
