@@ -33,7 +33,7 @@ def play_audio(audio_segment):
     return simpleaudio.play_buffer(audio_data, num_channels, bytes_per_sample, sample_rate)
 
 songfilenames = []
-for file in os.listdir("../non-stop-pop-audio-files"):
+for file in os.listdir("../non-stop-pop-audio-files/spotify"):
     if file.endswith(".wav"):
         if file != "test.wav":
             songfilenames.append(file)
@@ -46,7 +46,7 @@ for i in songfilenames:
     randomfile = getRandomPath()
 
     djfile = AudioSegment.from_wav(randomfile)
-    song = AudioSegment.from_wav(f"../non-stop-pop-audio-files/{i}")
+    song = AudioSegment.from_wav(f"../non-stop-pop-audio-files/spotify/{i}")
 
     
 
@@ -65,9 +65,12 @@ for i in songfilenames:
 
     play_object = play_audio(finalsong)
 
-    while True:
+    song_done = False
+    while not song_done:
         if play_object.is_playing():
             sleep(0.1)
+        else:
+            song_done = True
 
 
 
